@@ -1,0 +1,363 @@
+---
+// ---------------------------------------------------------
+// CONFIGURACIÓN SEO (Fácil de editar)
+// ---------------------------------------------------------
+const SEO_CONFIG = {
+  title: "Genca Almacenadora. Logística integral", // Ej: "Tu Título Especial" (Si se deja blanco toma el default del sitio)
+  description:
+    "Expertos en Almacén General y Depósito Fiscal en México. Ofrecemos herramientas para operar de manera ágil, eficiente y segura.",
+  image: "/opengraph.jpg", // Imagen para compartir en RRSS
+  favicon: "/favicon.png", // Icono de la pestaña
+};
+// ---------------------------------------------------------
+
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ContactForm from "../components/ContactForm.astro";
+import Phone from "phosphor-astro/Phone.astro";
+import WhatsappLogo from "phosphor-astro/WhatsappLogo.astro";
+import Envelope from "phosphor-astro/Envelope.astro";
+import MapPin from "phosphor-astro/MapPin.astro";
+import styles from "./index.module.css";
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<Layout
+  title={SEO_CONFIG.title}
+  description={SEO_CONFIG.description}
+  image={SEO_CONFIG.image}
+  favicon={SEO_CONFIG.favicon}
+>
+  <Header />
+
+  <main>
+    <!-- Module 1: Hero -->
+    <section id="inicio" class={styles.hero}>
+      <div class={styles.heroBackground}></div>
+      <div class={`container ${styles.heroContainer}`}>
+        <div class={styles.heroCard}>
+          <h1>DONDE TODO COMIENZA CON ORDEN…Y TERMINA CON ÉXITO.</h1>
+          <p>
+            Somos una empresa 100% mexicana, con el propósito de ofrecer a
+            nuestros clientes
+            <span class={styles.highlight}>un espacio logístico integral</span>,
+            donde encuentren todas las herramientas necesarias para operar de
+            manera ágil, eficiente y segura.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 2: Nuestros Servicios -->
+    <section class={styles.services} id="servicios">
+      <!-- Decoración lateral derecha -->
+      <div class={styles.decorSide}>
+        <div class={styles.rectOrange}></div>
+        <div class={styles.rectBlue}></div>
+      </div>
+
+      <div class="container">
+        <h2 class={styles.sectionTitle}>NUESTROS SERVICIOS</h2>
+
+        <!-- Service 1: Almacén General -->
+        <div class={styles.serviceCard}>
+          <div class={styles.serviceContent}>
+            <h3>ALMACEN GENERAL</h3>
+            <p>
+              Un almacén general de carga es una <strong
+                >instalación autorizada para recibir, resguardar y manejar
+                mercancías</strong
+              > de distintos clientes, ofreciendo servicios como recepción, almacenamiento,
+              control de inventarios, empaque, etiquetado y distribución.
+            </p>
+
+            <ul class={styles.benefitsGrid}>
+              <li>
+                <strong>Ahorro en infraestructura:</strong> no es necesario invertir
+                en bodegas propias.
+              </li>
+              <li>
+                <strong>Flexibilidad operativa:</strong> Se adapta a picos de demanda
+                y diferentes tipos de carga.
+              </li>
+              <li>
+                <strong>Seguridad y control:</strong> sistemas de inventario y trazabilidad
+                que reducen riesgos de pérdida o daño.
+              </li>
+              <li>
+                <strong>Agilidad logística:</strong> ubicación estratégica y servicios
+                integrales que optimizan la cadena de suministro.
+              </li>
+            </ul>
+
+            <a href="#contacto" class={styles.btnConsultar}
+              >Consultar <span class={styles.chevron}>›</span></a
+            >
+          </div>
+          <div class={styles.serviceImage}>
+            <div class={styles.decorImage}>
+              <div class={styles.rectOrange}></div>
+              <div class={styles.rectBlue}></div>
+            </div>
+            <img src={baseUrl + "almacen.png"} alt="Almacén General" />
+          </div>
+        </div>
+
+        <!-- Service 2: Depósito Fiscal -->
+        <div class={`${styles.serviceCard} ${styles.mtService}`}>
+          <div class={styles.serviceContent}>
+            <h3>DEPÓSITO FISCAL</h3>
+            <p>
+              Maximiza el valor de tu operación de comercio exterior con nuestro
+              Depósito Fiscal. Un espacio autorizado por la Aduana Mexicana
+              donde tus mercancías pueden permanecer bajo resguardo seguro, sin
+              necesidad de pagar impuestos hasta el momento de su retiro.
+            </p>
+
+            <ul class={styles.benefitsGrid}>
+              <li>
+                <strong>Liquidez inmediata:</strong> libera flujo de efectivo al diferir
+                impuestos y aranceles.
+              </li>
+              <li>
+                <strong>Respaldo total:</strong> instalaciones certificadas y procesos
+                en regla con la autoridad aduanera.
+              </li>
+              <li>
+                <strong>Flexibilidad operativa:</strong> decide si importas de manera
+                total o parcialmente tus mercancías o si las retornas al extranjero
+                sin necesidad de importar.
+              </li>
+            </ul>
+
+            <a href="#contacto" class={styles.btnConsultar}
+              >Consultar <span class={styles.chevron}>›</span></a
+            >
+          </div>
+          <div class={styles.serviceImage}>
+            <img src={baseUrl + "deposito-fiscal.png"} alt="Depósito Fiscal" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Module 3: Nuestras Instalaciones -->
+    <section class={styles.installations} id="nosotros">
+      <div class={styles.installationsBackground}></div>
+      <div class={`container ${styles.installationsContainer}`}>
+        <div class={styles.installationsGrid}>
+          <!-- Bloque Azul -->
+          <div class={`${styles.infoBox} ${styles.blue}`}>
+            <div class={styles.infoTitle}>
+              <h2>NUESTRAS INSTALACIONES</h2>
+            </div>
+            <div class={styles.infoList}>
+              <ul class={styles.checkList}>
+                <li>3,500 m2 de superficie</li>
+                <li>4,020 Pallet Positions</li>
+                <li>500 m2 Para carga en piso</li>
+                <li>
+                  3 Andenes de carga y descarga equipados con rampa niveladoras
+                </li>
+                <li>1 Rampa de acceso vehicular para unidades de hasta 53’</li>
+              </ul>
+            </div>
+          </div>
+          <!-- Bloque Naranja -->
+          <div class={`${styles.infoBox} ${styles.orange}`}>
+            <p>
+              Tultepec es un hub logístico que está en crecimiento, estratégico
+              por su ubicación privilegiada, conectividad terrestre y
+              ferroviaria, cercanía al AIFA, disponibilidad y calidad de parques
+              industriales, y la alta presencia de proyectos logísticos de
+              empresas líderes. Esto lo posiciona como un nodo clave tanto para
+              distribución nacional como logística internacional eficiente.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 4: Nuestros Diferenciales -->
+    <section class={styles.differentials} id="diferenciales">
+      <div class="container">
+        <div class={styles.differentialsGrid}>
+          <!-- Cell 1: Header -->
+          <div class={styles.diffHeader}>
+            <h2 class={styles.sectionTitleLeft}>NUESTROS DIFERENCIALES</h2>
+            <a href="#contacto" class={styles.btnConsultar}
+              >Consultar <span class={styles.chevron}>›</span></a
+            >
+          </div>
+
+          <!-- Cell 2: Card 1 - Última Milla -->
+          <div class={styles.diffCard}>
+            <img src={baseUrl + "dif-ultima-milla.png"} alt="Última Milla" />
+
+            <div class={styles.diffCardContent}>
+              <h3>ÚLTIMA MILLA</h3>
+
+              <p>
+                <strong
+                  >Ofrecemos servicios de distribución nacional confiables,
+                  seguros y personalizados</strong
+                >, asegurando entregas puntuales en cualquier parte del país.
+              </p>
+              <p>
+                <strong>Gestionamos todo el proceso logístico</strong>: desde el
+                armado de pedidos y la preparación de embarques, hasta la
+                entrega final en centros de distribución, puntos de venta,
+                mayoristas o cliente final.
+              </p>
+              <p>
+                Nuestra operación es flexible y se adapta a distintos sectores,
+                tipos de carga y requerimientos específicos, brindando <strong
+                  >trazabilidad, visibilidad y cumplimiento en cada etapa.</strong
+                >
+              </p>
+            </div>
+          </div>
+
+          <!-- Cell 3: Card 2 - Servicios 3PL -->
+          <div class={styles.diffCard}>
+            <img src={baseUrl + "dif-3pl.png"} alt="Servicios 3PL" />
+
+            <div class={styles.diffCardContent}>
+              <h3>SERVICIOS 3PL</h3>
+
+              <ul class={styles.diffList}>
+                <li>Recepción y descarga</li>
+                <li>Almacenaje inteligente (FIFO, LIFO, FEFO)</li>
+                <li>Picking y Packing</li>
+                <li>Etiquetado</li>
+                <li>Retrabajos y fullfilments</li>
+                <li>Cross Docking y distribución nacional</li>
+                <li>Gestión de devoluciones</li>
+                <li>Preparación de pedidos para paquetería.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Cell 4: Card 3 - Seguridad Operativa -->
+          <div class={styles.diffCard}>
+            <img
+              src={baseUrl + "dif-seguridad-operativa.png"}
+              alt="Seguridad Operativa"
+            />
+
+            <div class={styles.diffCardContent}>
+              <h3>SEGURIDAD OPERATIVA</h3>
+
+              <ul class={styles.diffList}>
+                <li>Mantenimientos Preventivos de herramientas de trabajo.</li>
+                <li>Personal Certificado para uso de montacargas.</li>
+                <li>Uso obligatorio de EPP.</li>
+                <li>Señalamientos de Seguridad y evacuación</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Cell 5: Card 4 - Seguridad Física -->
+          <div class={styles.diffCard}>
+            <img
+              src={baseUrl + "dif-seguridad-fisica.png"}
+              alt="Seguridad Física"
+            />
+
+            <div class={styles.diffCardContent}>
+              <h3>SEGURIDAD FÍSICA</h3>
+
+              <ul class={styles.diffList}>
+                <li>Vigilancia las 24 horas</li>
+                <li>Control de Accesos mediante biometría</li>
+                <li>Sensores de Apertura</li>
+                <li>Sistema de Vigilancia CCTV</li>
+                <li>Sensores de humo</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Cell 6: Decoration -->
+          <div class={styles.diffDecorCell}>
+            <div class={styles.decorSideInner}>
+              <div class={styles.rectOrange}></div>
+              <div class={styles.rectBlue}></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Module 5: Contacto -->
+    <section class={styles.contact} id="contacto">
+      <div class={`container ${styles.contactContainer}`}>
+        <h2 class={styles.sectionTitleContact}>CONTACTO</h2>
+
+        <div class={styles.contactWrapper}>
+          <!-- Card de Formulario (Fondo Blanco) -->
+          <div class={`${styles.contactCard} ${styles.white}`}>
+            <p class={styles.formInstruction}>
+              Completa el formulario y nos pondremos en contacto lo antes
+              posible
+            </p>
+            <ContactForm baseUrl={baseUrl} />
+          </div>
+
+          <!-- Card de Información (Genca Dark) -->
+          <div class={`${styles.contactCard} ${styles.dark}`}>
+            <div class={styles.contactData}>
+              <div class={styles.contactItem}>
+                <WhatsappLogo class={styles.contactIcon} />
+                <div class={styles.contactText}>
+                  <a
+                    target="_blank"
+                    href="https://wa.me/525513458658"
+                    target="_blank">+52 55 1345 8658</a
+                  >
+                </div>
+              </div>
+
+              <div class={styles.contactItem}>
+                <Phone class={styles.contactIcon} />
+                <div class={styles.contactText}>
+                  <a target="_blank" href="tel:+525563785070"
+                    >+52 55 6378 5070 / 5071</a
+                  >
+                </div>
+              </div>
+
+              <div class={styles.contactItem}>
+                <Envelope class={styles.contactIcon} />
+                <div class={styles.contactText}>
+                  <a
+                    target="_blank"
+                    href="mailto:atencionaclientes@genca.com.mx"
+                    >atencionaclientes@genca.com.mx</a
+                  >
+                </div>
+              </div>
+
+              <div class={styles.contactItem}>
+                <MapPin class={styles.contactIcon} />
+                <div class={styles.contactText}>
+                  <a
+                    target="_blank"
+                    class={styles.address}
+                    href="https://maps.app.goo.gl/vQCPChuzjFsbTayL7"
+                  >
+                    <strong>MICROPARKS TULTEPEC III</strong><br />
+                    Cartagena No. 18, Bodega 9 & 10<br />
+                    Ejido de Santiago Teyahualco, Tultepec, Estado de México.
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>

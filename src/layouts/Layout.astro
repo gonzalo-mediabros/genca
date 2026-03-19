@@ -1,0 +1,103 @@
+---
+const { 
+  title, 
+  description = "Almacenadora y logística de clase mundial. Soluciones integrales para tu cadena de suministro.",
+  image = "/opengraph.jpg",
+  favicon = "/favicon.png"
+} = Astro.props;
+
+import "../styles/global.css";
+
+const baseUrl = import.meta.env.BASE_URL;
+const siteTitle = title ? `${title} | Genca Almacenadora` : "Genca Almacenadora - Logística de clase mundial";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{siteTitle}</title>
+    <meta name="title" content={siteTitle} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={Astro.url} />
+    <link rel="icon" type="image/png" href={`${baseUrl}${favicon.replace(/^\//, '')}`} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:site_name" content="Genca Almacenadora" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${baseUrl}${image.replace(/^\//, '')}`} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={siteTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={`${baseUrl}${image.replace(/^\//, '')}`} />
+
+    <!-- Schema.org (JSON-LD) / MLL -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Genca Almacenadora",
+      "image": `${Astro.url.origin}${baseUrl}${image.replace(/^\//, '')}`,
+      "@id": Astro.url,
+      "url": Astro.url,
+      "telephone": "+525563785070",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Cartagena No. 18, Bodega 9 & 10",
+        "addressLocality": "Tultepec",
+        "addressRegion": "Estado de México",
+        "addressCountry": "MX"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 19.6836, 
+        "longitude": -99.1274
+      },
+      "description": description
+    })} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Oswald:wght@400;500&family=Roboto:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-M6D3N78G");
+    </script>
+    <!-- End Google Tag Manager -->
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-M6D3N78G"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
+    <slot />
+  </body>
+</html>

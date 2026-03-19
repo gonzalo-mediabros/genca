@@ -1,0 +1,87 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<footer class="main-footer">
+  <div class="container footer-container">
+    <div class="footer-logo">
+      <a href={`${baseUrl}`}>
+        <img
+          src={baseUrl + "logo-blanco.png"}
+          alt="Genca Logo"
+          width="267"
+          height="auto"
+        />
+      </a>
+    </div>
+
+    <div class="footer-info">
+      <p>GENCA ALMACENADORA - MÉXICO 2026</p>
+    </div>
+
+    <div class="footer-whatsapp">
+      <a
+        href="http://wa.me/+525513458658"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src={baseUrl + "wame.webp"}
+          alt="WhatsApp"
+          width="68"
+          height="auto"
+        />
+      </a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .main-footer {
+    background-color: var(--orange);
+    color: var(--white);
+    padding: 40px 0;
+  }
+
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-logo img {
+    width: 267px;
+  }
+
+  .footer-info p {
+    font-family: var(--font-roboto);
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .footer-whatsapp img {
+    width: 68px;
+    transition: transform 0.3s ease;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .footer-whatsapp img:hover {
+    transform: scale(1.1);
+  }
+
+  @media (max-width: 800px) {
+    .footer-container {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footer-logo img {
+      width: 200px;
+    }
+  }
+</style>

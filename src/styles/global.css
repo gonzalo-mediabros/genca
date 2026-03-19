@@ -1,0 +1,80 @@
+:root {
+  /* Colors */
+  --orange: #ff6b00;
+  --dark-blue: #223a76; /* rgb(34, 58, 118) */
+  --dark-bg: #2a3340;
+  --text-dark: #1c232d;
+  --white: #ffffff;
+  --bg-grey: #f2f2f2;
+  --bg-grey-medium: #e5e5e5;
+
+  /* Fonts */
+  --font-oswald: "Oswald", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+}
+
+/* Base Styles */
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-inter);
+  color: var(--text-dark);
+}
+p {
+  margin: 0;
+  margin-bottom: 0.5em;
+}
+a {
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-oswald);
+  font-weight: 500;
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+}
