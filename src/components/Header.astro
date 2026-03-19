@@ -57,27 +57,65 @@ const baseUrl = import.meta.env.BASE_URL;
 </header>
 
 <script is:inline>
-  const burgerBtn = document.getElementById("burger-btn");
-  const closeBtn = document.getElementById("close-btn");
-  const drawer = document.getElementById("mobile-drawer");
-  const overlay = document.getElementById("drawer-overlay");
-  const mobileLinks = document.querySelectorAll(".mobile-nav a");
+  document.addEventListener("DOMContentLoaded", () => {
+    const burgerBtn = document.getElementById("burger-btn");
+    const closeBtn = document.getElementById("close-btn");
+    const drawer = document.getElementById("mobile-drawer");
+    const overlay = document.getElementById("drawer-overlay");
+    const mobileLinks = document.querySelectorAll(".mobile-nav a");
+    const desktopLinks = document.querySelectorAll(".nav-links a");
+    const allLinks = [...mobileLinks, ...desktopLinks];
 
-  function toggleMenu() {
-    drawer.classList.toggle("is-open");
-    overlay.classList.toggle("is-visible");
-    document.body.classList.toggle("no-scroll");
-  }
+    // Logic: Burger Menu
+    function toggleMenu() {
+      if (!drawer || !overlay) return;
+      drawer.classList.toggle("is-open");
+      overlay.classList.toggle("is-visible");
+      document.body.classList.toggle("no-scroll");
+    }
 
-  burgerBtn?.addEventListener("click", toggleMenu);
-  closeBtn?.addEventListener("click", toggleMenu);
-  overlay?.addEventListener("click", toggleMenu);
+    burgerBtn?.addEventListener("click", toggleMenu);
+    closeBtn?.addEventListener("click", toggleMenu);
+    overlay?.addEventListener("click", toggleMenu);
 
-  mobileLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      drawer.classList.remove("is-open");
-      overlay.classList.remove("is-visible");
-      document.body.classList.remove("no-scroll");
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        drawer.classList.remove("is-open");
+        overlay.classList.remove("is-visible");
+        document.body.classList.remove("no-scroll");
+      });
+    });
+
+    // Logic: ScrollSpy (Robust Version)
+    const sections = Array.from(document.querySelectorAll("section[id]"));
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -70% 0px", // Activación cuando la sección entra en el tercio superior
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      // Find the first section that IS intersecting
+      const intersectingEntry = entries.find(entry => entry.isIntersecting);
+      
+      if (intersectingEntry) {
+        const currentId = intersectingEntry.target.getAttribute("id");
+        if (!currentId) return;
+
+        allLinks.forEach((link) => {
+          const href = link.getAttribute("href");
+          if (href && (href.endsWith(`#${currentId}`) || href === `#${currentId}`)) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      }
+    }, observerOptions);
+
+    sections.forEach((section) => {
+      if (section.id) observer.observe(section);
     });
   });
 </script>
@@ -120,13 +158,13 @@ const baseUrl = import.meta.env.BASE_URL;
     font-weight: 400;
     color: var(--white);
     letter-spacing: 0.05em;
+    transition: color 0.3s ease;
   }
 
-  .nav-links a:hover {
+  .nav-links a:hover,
+  .nav-links a.active {
     color: var(--orange);
-    text-decoration: underline;
-    text-underline-offset: 10px;
-    text-decoration-thickness: 3px;
+    text-decoration: none; /* Asegurar sin subrayado */
   }
 
   /* Mobile Burger */
@@ -144,7 +182,7 @@ const baseUrl = import.meta.env.BASE_URL;
   .mobile-menu-btn span {
     display: block;
     width: 28px;
-    height: 2px; /* Más fino y elegante */
+    height: 2px;
     background-color: var(--white);
     transition: all 0.3s ease;
   }
@@ -153,7 +191,7 @@ const baseUrl = import.meta.env.BASE_URL;
   .mobile-drawer {
     position: fixed;
     top: 0;
-    right: -100%; /* Oculto a la derecha */
+    right: -100%;
     width: 300px;
     height: 100vh;
     background-color: var(--dark-blue);
@@ -197,6 +235,12 @@ const baseUrl = import.meta.env.BASE_URL;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     display: block;
+    transition: color 0.3s ease;
+  }
+
+  .mobile-nav a:hover,
+  .mobile-nav a.active {
+    color: var(--orange);
   }
 
   /* Overlay */
@@ -219,10 +263,6 @@ const baseUrl = import.meta.env.BASE_URL;
   }
 
   @media (max-width: 992px) {
-    .main-header {
-      /* height: 80px; */
-    }
-
     .logo img {
       width: 180px;
     }

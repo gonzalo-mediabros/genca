@@ -514,20 +514,20 @@
 
 .diff-decor-cell {
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding-bottom: 20px;
 }
 
 .decor-side-inner {
   display: flex;
-  flex-direction: column;
-  width: 24px;
-  height: 280px;
+
+  height: 24px;
+  width: 200px;
 }
 
 .decor-side-inner div {
-  width: 100%;
+  height: 100%;
   flex: 1;
 }
 

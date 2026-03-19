@@ -2,10 +2,12 @@
   <!-- Formulario Principal -->
   <form id="contact-form" class="contact-form">
     <div class="form-group">
+      <label for="first_name">Nombre</label>
       <input type="text" name="first_name" placeholder="Nombre" required />
     </div>
 
     <div class="form-group">
+      <label for="company_name">Nombre de la empresa</label>
       <input
         type="text"
         name="company_name"
@@ -15,13 +17,16 @@
     </div>
 
     <div class="form-group">
+      <label for="email">Correo</label>
       <input type="email" name="email" placeholder="Correo" required />
     </div>
 
     <div class="form-group">
+      <label for="phone">Teléfono</label>
       <input type="tel" name="phone" placeholder="Teléfono" required />
     </div>
     <div class="form-group">
+      <label for="message">Mensaje</label>
       <textarea name="message" placeholder="Mensaje" required rows="4"
       ></textarea>
     </div>
@@ -98,14 +103,17 @@
 </script>
 
 <style>
-  #contact-wrapper {
+  /* #contact-wrapper {
     width: 100%;
     min-height: 350px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
+  } */
 
+  label {
+    display: none;
+  }
   .contact-form {
     display: flex;
     flex-direction: column;
