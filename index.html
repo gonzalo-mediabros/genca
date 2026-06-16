@@ -154,11 +154,15 @@ Tu mensaje ha sido enviado con éxito. Un especialista de nuestro equipo
       site: "genca",
     };
 
+    console.log("[ContactForm v2] Enviando formulario...");
+
     fetch("https://hook.us2.make.com/vzhcg5ny8z7x51emokpa735pgu52b4hd", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
-    }).catch(() => {});
+    })
+      .then(() => console.log("[ContactForm v2] Make OK"))
+      .catch((err) => console.error("[ContactForm v2] Make FAIL", err));
 
     try {
       const res = await fetch(
@@ -177,6 +181,7 @@ Tu mensaje ha sido enviado con éxito. Un especialista de nuestro equipo
       const data = await res.json();
 
       if (data.success === true) {
+        console.log("[ContactForm v2] mb-suite OK", data);
         form.style.display = "none";
         successMsg.style.display = "block";
         form.reset();
@@ -184,6 +189,7 @@ Tu mensaje ha sido enviado con éxito. Un especialista de nuestro equipo
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: "form_submit", form_id: formId });
       } else {
+        console.warn("[ContactForm v2] mb-suite FAIL", data);
         const msg =
           ERROR_MESSAGES[data.error] ||
           "Hubo un error al enviar el formulario. Por favor, intente nuevamente.";
@@ -193,7 +199,8 @@ Tu mensaje ha sido enviado con éxito. Un especialista de nuestro equipo
         btnText.style.display = "inline";
         btnLoader.style.display = "none";
       }
-    } catch {
+    } catch (err) {
+      console.error("[ContactForm v2] mb-suite EXCEPTION", err);
       errorMessage.textContent =
         "Hubo un error al enviar el formulario. Por favor, intente nuevamente.";
       errorMessage.style.display = "block";
