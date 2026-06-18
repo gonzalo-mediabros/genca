@@ -1,16 +1,20 @@
 <div id="contact-wrapper">
   <!-- Formulario Principal -->
-  <form id="contact-form" class="contact-form">
+  <form
+    id="contact-form"
+    class="contact-form"
+    data-form-id="3d9b6eefac0748c9b63abad2673194d6"
+  >
     <div class="form-group">
       <label for="first_name">Nombre</label>
-      <input type="text" name="first_name" placeholder="Nombre" required />
+      <input type="text" name="name" placeholder="Nombre" required />
     </div>
 
     <div class="form-group">
       <label for="company_name">Nombre de la empresa</label>
       <input
         type="text"
-        name="company_name"
+        name="company"
         placeholder="Nombre de la empresa"
         required
       />
@@ -26,10 +30,38 @@
       <input type="tel" name="phone" placeholder="Teléfono" required />
     </div>
     <div class="form-group">
+      <label for="servicio">Servicio requerido</label>
+      <select name="servicio" required>
+        <option value="">Seleccionar servicio</option>
+        <option value="Depósito Fiscal">Depósito Fiscal</option>
+        <option value="Almacén General">Almacén General</option>
+        <option value="Cross Dock">Cross Dock</option>
+        <option value="Fulfillment">Fulfillment</option>
+        <option value="Distribución">Distribución</option>
+      </select>
+    </div>
+
+    <div class="form-group">
       <label for="message">Mensaje</label>
       <textarea name="message" placeholder="Mensaje" required rows="4"
       ></textarea>
     </div>
+
+    <input
+      type="text"
+      name="_website"
+      tabindex="-1"
+      autocomplete="off"
+      style="display:none"
+      value=""
+    />
+    <input type="hidden" name="site" value="genca" />
+
+    <p
+      id="error-message"
+      style="display:none; color: red; font-size: 14px; margin-bottom: 8px;"
+    >
+    </p>
 
     <div class="form-actions">
       <button type="submit" id="submit-btn" class="btn-submit">
@@ -54,47 +86,105 @@
 </div>
 
 <script is:inline>
+  console.log("v2");
+
   const form = document.getElementById("contact-form");
-  const wrapper = document.getElementById("contact-wrapper");
   const successMsg = document.getElementById("success-message");
   const submitBtn = document.getElementById("submit-btn");
   const btnText = submitBtn.querySelector(".btn-text");
   const btnLoader = submitBtn.querySelector(".btn-loader");
+  const errorMessage = document.getElementById("error-message");
+
+  const ERROR_MESSAGES = {
+    validation_failed:
+      "Algunos campos no son válidos. Por favor, revisá el formulario.",
+    rate_limited_ip_minute:
+      "Demasiados intentos. Esperá un momento y volvé a intentarlo.",
+    rate_limited_ip_hour:
+      "Demasiados intentos. Esperá un momento y volvé a intentarlo.",
+    rate_limited_form_day:
+      "Se alcanzó el límite de envíos por hoy. Intentá mañana.",
+    form_not_found:
+      "Error de configuración del formulario. Contactanos directamente.",
+    payload_too_large: "El mensaje es demasiado largo. Por favor, resumilo.",
+  };
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Estado de carga
     submitBtn.disabled = true;
     btnText.style.display = "none";
     btnLoader.style.display = "inline";
+    errorMessage.style.display = "none";
 
-    const formData = new FormData(form);
+    const formId = form.dataset.formId || "";
+
+    const payload = {
+      name: form.elements.namedItem("name").value,
+      company: form.elements.namedItem("company").value,
+      email: form.elements.namedItem("email").value,
+      phone: form.elements.namedItem("phone").value,
+      servicio: form.elements.namedItem("servicio").value,
+      message: form.elements.namedItem("message").value,
+      site: "genca",
+    };
+
+    // Merge UTM data from localStorage
+    try {
+      const utmRaw = localStorage.getItem("__utm_data");
+      if (utmRaw) Object.assign(payload, JSON.parse(utmRaw));
+    } catch (_) {}
+
+    console.log("[ContactForm] Enviando formulario...");
+
+    fetch("https://hook.us2.make.com/vzhcg5ny8z7x51emokpa735pgu52b4hd", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+      .then(() => console.log("[ContactForm] Make OK"))
+      .catch((err) => console.error("[ContactForm] Make FAIL", err));
 
     try {
-      const response = await fetch("https://usebasin.com/f/aa4d514a4bf9", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json",
+      const res = await fetch(
+        `https://mb-suite.com/api/v1/public/forms/submit?formId=${formId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            formId,
+            ...payload,
+            _website: form.elements.namedItem("_website").value,
+          }),
         },
-      });
+      );
 
-      if (response.ok) {
-        // Transición de éxito
+      const data = await res.json();
+
+      if (data.success === true) {
+        console.log("[ContactForm] mb-suite OK", data);
         form.style.display = "none";
         successMsg.style.display = "block";
+        form.reset();
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "form_submit", form_id: formId });
       } else {
-        alert(
-          "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.",
-        );
+        console.warn("[ContactForm] mb-suite FAIL", data);
+        const msg =
+          ERROR_MESSAGES[data.error] ||
+          "Hubo un error al enviar el formulario. Por favor, intente nuevamente.";
+        errorMessage.textContent = msg;
+        errorMessage.style.display = "block";
         submitBtn.disabled = false;
         btnText.style.display = "inline";
         btnLoader.style.display = "none";
       }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Error de conexión. Verifica tu internet e inténtalo de nuevo.");
+    } catch (err) {
+      console.error("[ContactForm] mb-suite EXCEPTION", err);
+      errorMessage.textContent =
+        "Hubo un error al enviar el formulario. Por favor, intente nuevamente.";
+      errorMessage.style.display = "block";
       submitBtn.disabled = false;
       btnText.style.display = "inline";
       btnLoader.style.display = "none";
@@ -125,7 +215,8 @@
     width: 100%;
   }
   textarea,
-  input {
+  input,
+  select {
     width: 100%;
     padding: 15px 10px;
     border: none;
@@ -138,7 +229,8 @@
     transition: border-color 0.3s ease;
   }
   textarea:focus,
-  input:focus {
+  input:focus,
+  select:focus {
     border-color: var(--orange);
   }
   textarea::placeholder,

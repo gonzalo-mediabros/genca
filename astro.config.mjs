@@ -3,12 +3,12 @@ import { defineConfig } from "astro/config";
 
 // DEPLOY GITHUB PAGES DOMINIO TEMPORAL
 //
-  let DEPLOY_DOMAIN = "https://gonzalo-mediabros.github.io";
-  let DEPLOY_PATH = "/genca/";
+let DEPLOY_DOMAIN = "https://gonzalo-mediabros.github.io";
+let DEPLOY_PATH = "/genca/";
 
 // ⚠️ DESCOMENTAR Y COMPLETAR SI DEPLOY ES UN CUSTOM DOMAIN ⚠️
-// DEPLOY_DOMAIN = "[DOMINIO]";
-// DEPLOY_PATH = "/";
+DEPLOY_DOMAIN = "https://genca.com.mx";
+DEPLOY_PATH = "/";
 
 export default defineConfig({
   site: DEPLOY_DOMAIN,
