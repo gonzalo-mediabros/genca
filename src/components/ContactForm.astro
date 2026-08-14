@@ -127,6 +127,8 @@
       servicio: form.elements.namedItem("servicio").value,
       message: form.elements.namedItem("message").value,
       site: "genca",
+      page_url:
+        window.location.origin + window.location.pathname + window.location.hash,
     };
 
     // Merge UTM data from localStorage
