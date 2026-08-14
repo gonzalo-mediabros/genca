@@ -86,7 +86,7 @@
 </div>
 
 <script is:inline>
-  console.log("genca");
+  console.log("genca.com.mx ");
 
   const form = document.getElementById("contact-form");
   const successMsg = document.getElementById("success-message");
@@ -128,7 +128,9 @@
       message: form.elements.namedItem("message").value,
       site: "genca",
       page_url:
-        window.location.origin + window.location.pathname + window.location.hash,
+        window.location.origin +
+        window.location.pathname +
+        window.location.hash,
     };
 
     // Merge UTM data from localStorage
