@@ -155,6 +155,8 @@ Tu mensaje ha sido enviado con éxito. Un especialista de nuestro equipo
       servicio: form.elements.namedItem("servicio").value,
       message: form.elements.namedItem("message").value,
       site: "genca",
+      page_url:
+        window.location.origin + window.location.pathname + window.location.hash,
     };
 
     // Merge UTM data from localStorage
